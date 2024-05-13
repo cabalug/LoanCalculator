@@ -18,4 +18,9 @@ public class ClientRepositoryImpl implements ClientRepository {
     public void save(Client client) {
         database.add(client);
     }
+
+    @Override
+    public List<Client> findAll() {
+        return database;
+    }
 }

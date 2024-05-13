@@ -31,9 +31,9 @@ public class Main {
 
             switch (opction) {
                 case 1:
-                    System.out.println("============================");
+                    System.out.println("=======================================================================================================");
                     System.out.println("Create Client");
-                    System.out.println("============================");
+                    System.out.println("=======================================================================================================");
                     Client client = new Client();
 
                     do {
@@ -65,14 +65,20 @@ public class Main {
                     System.out.println("Client created successfully");
                     break;
                 case 2:
-                    System.out.println("============================");
+                    System.out.println("=======================================================================================================");
                     System.out.println("List clients");
-                    System.out.println("============================");
+                    System.out.println("=======================================================================================================");
+                    System.out.printf("| %-20s | %-20s | %-20s | %-30s |\n", "Identification","Full Name", "Phone Number", "Email");
+                    System.out.println("-------------------------------------------------------------------------------------------------------");
+                    for (Client client1: clientRepository.findAll()){
+                        System.out.printf("| %-20s | %-20s | %-20s | %-30s |\n", client1.getIdentification(), client1.getFirstName()+" "+client1.getLastName(), client1.getPhoneNumber(), client1.getEmail());
+                    }
+                    System.out.println("-------------------------------------------------------------------------------------------------------");
                     break;
                 case 0:
-                    System.out.println("============================");
+                    System.out.println("=======================================================================================================");
                     System.out.println("Bye!");
-                    System.out.println("============================");
+                    System.out.println("=======================================================================================================");
                     exit = true;
                     break;
                 default:
