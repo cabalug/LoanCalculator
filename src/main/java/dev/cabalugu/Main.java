@@ -1,5 +1,9 @@
 package dev.cabalugu;
 
+import dev.cabalugu.model.Client;
+import dev.cabalugu.repository.ClientRepository;
+import dev.cabalugu.repository.impl.ClientRepositoryImpl;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         BufferedReader bufer = new BufferedReader(new InputStreamReader(System.in));
+        ClientRepository clientRepository = new ClientRepositoryImpl();
         boolean exit = false;
         int opction;
 
@@ -29,6 +34,35 @@ public class Main {
                     System.out.println("============================");
                     System.out.println("Create Client");
                     System.out.println("============================");
+                    Client client = new Client();
+
+                    do {
+                        System.out.print("Get the client identification: ");
+                        client.setIdentification(bufer.readLine());
+                    } while (client.getIdentification().isEmpty());
+
+                    do {
+                        System.out.print("Get the client first name: ");
+                        client.setFirstName(bufer.readLine());
+                    } while (client.getFirstName().isEmpty());
+
+                    do {
+                        System.out.print("Get the client last name: ");
+                        client.setLastName(bufer.readLine());
+                    } while (client.getLastName().isEmpty());
+
+                    do {
+                        System.out.print("Get the client phone number: ");
+                        client.setPhoneNumber(bufer.readLine());
+                    } while (client.getPhoneNumber().isEmpty());
+
+                    do {
+                        System.out.print("Get the client email: ");
+                        client.setEmail(bufer.readLine());
+                    } while (client.getEmail().isEmpty());
+
+                    clientRepository.save(client);
+                    System.out.println("Client created successfully");
                     break;
                 case 2:
                     System.out.println("============================");
