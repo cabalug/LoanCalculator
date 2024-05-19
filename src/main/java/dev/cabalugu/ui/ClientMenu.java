@@ -28,8 +28,7 @@ public class ClientMenu {
     }
 
     public static MenuOption getOption() throws IOException {
-        System.out.print("Enter your choice: ");
-        Integer choice = Integer.parseInt(buffer.readLine());
+        Integer choice = Integer.parseInt(getClientInput("Enter your choice: "));
 
         MenuOption selectedOption = null;
         for (MenuOption option : MenuOption.values()) {
