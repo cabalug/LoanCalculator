@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
+import static dev.cabalugu.ui.MenuOption.*;
+
 public class ClientMenu {
     private static final BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
     private static final IClientRepository clientRepository = new ClientRepositoryImpl();
@@ -25,16 +27,18 @@ public class ClientMenu {
         }
     }
 
-    public static MenuOption getOption(){
+    public static MenuOption getOption() throws IOException {
         System.out.print("Enter your choice: ");
-        return Arrays.stream(MenuOption.values())
-                .filter(option -> {
-                    try {
-                        return option.getOption() == Integer.parseInt(buffer.readLine());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }).findFirst().orElse(null);
+        Integer choice = Integer.parseInt(buffer.readLine());
+
+        MenuOption selectedOption = null;
+        for (MenuOption option : MenuOption.values()) {
+            if (choice.equals(option.getOption())) {
+                selectedOption = option;
+                break;
+            }
+        }
+        return selectedOption;
     }
 
     public static void processOption(MenuOption option) throws IOException {
