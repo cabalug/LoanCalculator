@@ -7,6 +7,7 @@ import dev.cabalugu.repository.impl.ClientRepositoryImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class ClientMenu {
     private static final BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
@@ -19,26 +20,32 @@ public class ClientMenu {
     }
 
     public static void showMenu() {
-        System.out.println("Client Menu");
-        System.out.println("1. Show all Clients");
-        System.out.println("2. Add a new Client");
-        System.out.println("0. Exit");
+        for (MenuOption option : MenuOption.values()) {
+            System.out.println(option.getOption() + ". " + option.getDescription());
+        }
     }
 
-    public static int getOption() throws IOException {
+    public static MenuOption getOption(){
         System.out.print("Enter your choice: ");
-        return Integer.parseInt(buffer.readLine());
+        return Arrays.stream(MenuOption.values())
+                .filter(option -> {
+                    try {
+                        return option.getOption() == Integer.parseInt(buffer.readLine());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).findFirst().orElse(null);
     }
 
-    public static void processOption(int option) throws IOException {
+    public static void processOption(MenuOption option) throws IOException {
         switch (option) {
-            case 1:
+            case SHOW_ALL_CLIENTS:
                 showAllClients();
                 break;
-            case 2:
+            case ADD_A_NEW_CLIENT:
                 addNewClient();
                 break;
-            case 0:
+            case EXIT:
                 System.out.println("Thank you for using the Loan Calculator. Goodbye!");
                 break;
             default:
