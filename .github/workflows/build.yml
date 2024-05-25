@@ -1,0 +1,29 @@
+name: Build Native Image
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '17'
+          distribution: 'graalvm'
+
+      - name: Build with Gradle
+        run: gradle nativeCompile
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: native-image
+          path: ./build/native/nativeCompile/
