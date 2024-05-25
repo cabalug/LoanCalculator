@@ -11,17 +11,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up GraalVM
-        uses: actions/setup-java@v2
+        uses: graalvm/setup-graalvm@v1
         with:
+          java-version: '17'
           distribution: 'graalvm'
-          java-version: '11'
-          graalvm-version: '21.3.0'
 
       - name: Build with Gradle
-        run: gradle nativeCompile
+        run: gradlew nativeCompile
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
